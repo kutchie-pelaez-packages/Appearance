@@ -12,7 +12,7 @@ let package = Package(
         .library(name: "AppearanceStyle", targets: ["AppearanceStyle"])
     ],
     dependencies: [
-        .package(name: "CoreUtils", url: "https://github.com/kutchie-pelaez/CoreUtils", .branch("master"))
+        .package(name: "CoreUtils", url: "https://github.com/kutchie-pelaez-packages/CoreUtils", .branch("master"))
     ],
     targets: [
         .target(
