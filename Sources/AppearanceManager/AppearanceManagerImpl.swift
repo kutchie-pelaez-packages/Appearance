@@ -50,5 +50,5 @@ final class AppearanceManagerImpl: AppearanceManager {
         eventPassthroughSubject.eraseToAnyPublisher()
     }
 
-    lazy var appearanceStyleSubject = MutableValueSubject(storedAppearanceStyle)
+    lazy var appearanceStyleSubject: MutableValueSubject<AppearanceStyle> = UniqueMutableValueSubject(storedAppearanceStyle)
 }
