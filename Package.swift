@@ -8,8 +8,18 @@ let package = Package(
         .iOS("15")
     ],
     products: [
-        .library(name: "AppearanceManager", targets: ["AppearanceManager"]),
-        .library(name: "AppearanceStyle", targets: ["AppearanceStyle"])
+        .library(
+            name: "AppearanceManager", 
+            targets: [
+                "AppearanceManager"
+            ]
+        ),
+        .library(
+            name: "AppearanceStyle",
+            targets: [
+                "AppearanceStyle"
+            ]
+        )
     ],
     dependencies: [
         .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core.git", .branch("master"))
