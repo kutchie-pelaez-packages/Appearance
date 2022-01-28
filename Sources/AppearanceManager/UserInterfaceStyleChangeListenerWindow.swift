@@ -1,4 +1,4 @@
-import CoreUtils
+import Core
 import UIKit
 
 final class UserInterfaceStyleChangeListenerWindow: UIWindow {

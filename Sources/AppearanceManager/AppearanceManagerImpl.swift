@@ -1,6 +1,6 @@
 import AppearanceStyle
 import Combine
-import CoreUtils
+import Core
 import os
 
 private let logger = Logger("appearance")

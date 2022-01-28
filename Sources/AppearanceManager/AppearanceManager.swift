@@ -1,5 +1,5 @@
 import AppearanceStyle
-import CoreUtils
+import Core
 
 public protocol AppearanceManager: Startable {
     var eventPublisher: ValuePublisher<AppearanceEvent> { get }
