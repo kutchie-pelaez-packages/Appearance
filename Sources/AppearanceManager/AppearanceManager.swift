@@ -1,8 +1,7 @@
 import AppearanceStyle
 import Core
 
-public protocol AppearanceManager: Startable {
+public protocol AppearanceManager {
     var eventPublisher: ValuePublisher<AppearanceEvent> { get }
-    var appearanceStyle: AppearanceStyle { get nonmutating set }
-    func register(appearanceThemeReceiver: AppearanceThemeReceiver)
+    var appearanceStyleSubject: MutableValueSubject<AppearanceStyle> { get }
 }
