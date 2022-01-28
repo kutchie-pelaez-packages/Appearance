@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "AppearanceManager",
+    name: "Appearance",
     platforms: [
         .iOS("15")
     ],
