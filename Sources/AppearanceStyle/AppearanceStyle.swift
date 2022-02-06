@@ -1,10 +1,6 @@
 import UIKit
 
-public enum AppearanceStyle:
-    CustomStringConvertible,
-    Equatable
-{
-
+public enum AppearanceStyle: CustomStringConvertible, Equatable {
     case system
     case custom(AppearanceTheme)
 

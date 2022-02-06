@@ -1,11 +1,6 @@
 import UIKit
 
-public enum AppearanceTheme:
-    String,
-    CaseIterable,
-    CustomStringConvertible
-{
-
+public enum AppearanceTheme: String, CaseIterable, CustomStringConvertible {
     case light
     case dark
 
