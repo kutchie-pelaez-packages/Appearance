@@ -32,7 +32,7 @@ final class AppearanceManagerImpl: AppearanceManager {
             .sink { [weak self] newAppearanceStyle in
                 guard
                     let self = self,
-                    newAppearanceStyle != self.appearanceStyleSubject.value
+                    newAppearanceStyle != self.storedAppearanceStyle
                 else {
                     return
                 }
