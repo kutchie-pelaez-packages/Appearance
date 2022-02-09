@@ -1,15 +1,16 @@
 import AppearanceStyle
 import Combine
 import Core
-import os
-
-private let logger = Logger("appearance")
+import Logger
 
 final class AppearanceManagerImpl: AppearanceManager {
-    init() {
+    init(logger: Logger) {
+        self.logger = logger
         setupUserInterfaceStyleChangeListenerAction()
         subscribeToEvents()
     }
+
+    private let logger: Logger
 
     @AppearanceStyleUserDefault("appearance_style")
     private var storedAppearanceStyle
@@ -37,7 +38,10 @@ final class AppearanceManagerImpl: AppearanceManager {
                     return
                 }
 
-                logger.log("Changing appearance style from \(self.appearanceStyleSubject.value) to \(newAppearanceStyle)")
+                self.logger.log(
+                    "Changing appearance style from \(self.appearanceStyleSubject.value) to \(newAppearanceStyle)",
+                    domain: .appearance
+                )
 
                 self.storedAppearanceStyle = newAppearanceStyle
             }
@@ -51,4 +55,8 @@ final class AppearanceManagerImpl: AppearanceManager {
     }
 
     lazy var appearanceStyleSubject: MutableValueSubject<AppearanceStyle> = UniqueMutableValueSubject(storedAppearanceStyle)
+}
+
+extension LogDomain {
+    fileprivate static let appearance: Self = "appearance"
 }
