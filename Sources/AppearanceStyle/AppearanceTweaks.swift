@@ -1,7 +1,7 @@
 import Tweak
 
-extension Tweak.ID {
+extension TweakID {
     public enum Appearance {
-        public static var updateAppearanceStyle = Tweak.ID()
+        public static var updateAppearanceStyle: TweakID { TweakID() }
     }
 }
