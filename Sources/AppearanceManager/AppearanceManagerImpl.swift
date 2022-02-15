@@ -2,6 +2,7 @@ import AppearanceStyle
 import Combine
 import Core
 import Logger
+import Tweak
 
 final class AppearanceManagerImpl: AppearanceManager {
     init(logger: Logger) {
@@ -46,6 +47,19 @@ final class AppearanceManagerImpl: AppearanceManager {
                 self.storedAppearanceStyle = newAppearanceStyle
             }
             .store(in: &cancellables)
+    }
+
+    // MARK: - TweakReceiver
+
+    func receive(_ tweak: Tweak) {
+        guard
+            tweak.id == .Appearance.updateAppearanceStyle,
+            let newValue = tweak.args[.Common.newValue] as? AppearanceStyle
+        else {
+            return
+        }
+
+        appearanceStyleSubject.value = newValue
     }
 
     // MARK: - AppearanceManager
