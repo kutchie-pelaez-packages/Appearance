@@ -54,7 +54,7 @@ final class AppearanceManagerImpl: AppearanceManager {
     func receive(_ tweak: Tweak) {
         guard
             tweak.id == .Appearance.updateAppearanceStyle,
-            let newValue = tweak.args[.Common.newValue] as? AppearanceStyle
+            let newValue = tweak.args[.newValue] as? AppearanceStyle
         else {
             return
         }
