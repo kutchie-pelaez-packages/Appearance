@@ -6,17 +6,12 @@ public enum AppearanceTheme: String, CaseIterable, CustomStringConvertible {
 
     public var userInterfaceStyle: UIUserInterfaceStyle {
         switch self {
-        case .light:
-            return .light
-
-        case .dark:
-            return .dark
+        case .light: return .light
+        case .dark: return .dark
         }
     }
 
     // MARK: - CustomStringConvertible
 
-    public var description: String {
-        rawValue
-    }
+    public var description: String { rawValue }
 }

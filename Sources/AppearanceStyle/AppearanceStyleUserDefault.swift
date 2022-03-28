@@ -4,10 +4,7 @@ import Foundation
 @propertyWrapper
 public struct AppearanceStyleUserDefault {
     public init(_ key: String) {
-        self._appearanceStyle = UserDefault(
-            key,
-            default: nil
-        )
+        self._appearanceStyle = UserDefault(key, default: nil)
     }
 
     @UserDefault
@@ -25,11 +22,8 @@ public struct AppearanceStyleUserDefault {
             }
         } set {
             switch newValue {
-            case .system:
-                appearanceStyle = nil
-
-            case let .custom(theme):
-                appearanceStyle = theme.rawValue
+            case .system: appearanceStyle = nil
+            case let .custom(theme): appearanceStyle = theme.rawValue
             }
         }
     }

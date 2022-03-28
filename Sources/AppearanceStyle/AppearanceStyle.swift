@@ -9,17 +9,10 @@ public enum AppearanceStyle: CustomStringConvertible, Equatable {
         case .system:
             let window = UIWindow()
             switch window.traitCollection.userInterfaceStyle {
-            case .light:
-                return .light
-
-            case .dark:
-                return .dark
-
-            case .unspecified:
-                return .light
-
-            @unknown default:
-                return .light
+            case .light: return .light
+            case .dark: return .dark
+            case .unspecified: return .light
+            @unknown default: return .light
             }
 
         case let .custom(theme):
@@ -29,11 +22,8 @@ public enum AppearanceStyle: CustomStringConvertible, Equatable {
 
     public var userInterfaceStyle: UIUserInterfaceStyle {
         switch self {
-        case .system:
-            return .unspecified
-
-        case let .custom(appearanceTheme):
-            return appearanceTheme.userInterfaceStyle
+        case .system: return .unspecified
+        case let .custom(appearanceTheme): return appearanceTheme.userInterfaceStyle
         }
     }
 
@@ -63,11 +53,8 @@ public enum AppearanceStyle: CustomStringConvertible, Equatable {
 
     public var description: String {
         switch self {
-        case .system:
-            return "system"
-
-        case let .custom(theme):
-            return "custom.\(theme.rawValue)"
+        case .system: return "system"
+        case let .custom(theme): return "custom.\(theme.rawValue)"
         }
     }
 }
