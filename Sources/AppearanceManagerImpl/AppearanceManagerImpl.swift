@@ -1,16 +1,11 @@
-import AppearanceStyle
+import Appearance
+import AppearanceTweaking
 import Combine
 import Core
 import Logger
-import Tweak
+import Tweaking
 
-final class AppearanceManagerImpl: AppearanceManager {
-    init(logger: Logger) {
-        self.logger = logger
-        setupUserInterfaceStyleChangeListenerAction()
-        subscribeToEvents()
-    }
-
+final class AppearanceManagerImpl: AppearanceManager, TweakReceiver {
     private let logger: Logger
 
     @AppearanceStyleUserDefault("appearance_style")
@@ -18,12 +13,18 @@ final class AppearanceManagerImpl: AppearanceManager {
 
     private let userInterfaceStyleChangeListenerWindow = UserInterfaceStyleChangeListenerWindow()
 
-    private let eventPassthroughSubject = ValuePassthroughSubject<AppearanceEvent>()
+    private let eventPassthroughSubject = PassthroughSubject<AppearanceEvent, Never>()
     private var cancellables = [AnyCancellable]()
 
+    init(logger: Logger) {
+        self.logger = logger
+        setupUserInterfaceStyleChangeListenerAction()
+        subscribeToEvents()
+    }
+
     private func setupUserInterfaceStyleChangeListenerAction() {
-        userInterfaceStyleChangeListenerWindow.userInterfaceStyleDidChangeAction = { [weak self] in
-            self?.eventPassthroughSubject.send(.systemUserInterfaceStyleDidChange)
+        userInterfaceStyleChangeListenerWindow.userInterfaceStyleDidChangeAction = { [weak self] userInterfaceStyle in
+            self?.eventPassthroughSubject.send(.systemUserInterfaceStyleDidChange(userInterfaceStyle))
         }
     }
 
@@ -44,11 +45,19 @@ final class AppearanceManagerImpl: AppearanceManager {
             .store(in: &cancellables)
     }
 
+    // MARK: - AppearanceManager
+
+    var eventPublisher: AnyPublisher<AppearanceEvent, Never> {
+        eventPassthroughSubject.eraseToAnyPublisher()
+    }
+
+    lazy var appearanceStyleSubject = MutableValueSubject(storedAppearanceStyle)
+
     // MARK: - TweakReceiver
 
     func receive(_ tweak: Tweak) {
         guard
-            tweak.id == .Appearance.updateAppearanceStyle,
+            tweak.id == .Appearance.update,
             let newValue = tweak.args[.newValue] as? AppearanceStyle
         else {
             return
@@ -56,14 +65,8 @@ final class AppearanceManagerImpl: AppearanceManager {
 
         appearanceStyleSubject.value = newValue
     }
-
-    // MARK: - AppearanceManager
-
-    var eventPublisher: ValuePublisher<AppearanceEvent> { eventPassthroughSubject.eraseToAnyPublisher() }
-
-    lazy var appearanceStyleSubject: MutableValueSubject<AppearanceStyle> = MutableValueSubject(storedAppearanceStyle)
 }
 
-extension LogDomain {
-    fileprivate static let appearance: Self = "appearance"
+extension LoggingDomain {
+    fileprivate static let appearance: LoggingDomain = "appearance"
 }

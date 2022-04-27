@@ -15,35 +15,32 @@ public enum AppearanceStyle: CustomStringConvertible, Equatable {
             @unknown default: return .light
             }
 
-        case let .custom(theme):
+        case .custom(let theme):
             return theme
         }
     }
 
     public var userInterfaceStyle: UIUserInterfaceStyle {
         switch self {
-        case .system: return .unspecified
-        case let .custom(appearanceTheme): return appearanceTheme.userInterfaceStyle
+        case .system:
+            return .unspecified
+
+        case .custom(let appearanceTheme):
+            return appearanceTheme.userInterfaceStyle
         }
     }
 
     public var isCustomLight: Bool {
-        if
-            case let .custom(theme) = self,
-            theme == .light
-        {
-            return true
+        if case let .custom(theme) = self {
+            return theme == .light
         }
 
         return false
     }
 
     public var isCustomDark: Bool {
-        if
-            case let .custom(theme) = self,
-            theme == .dark
-        {
-            return true
+        if case let .custom(theme) = self {
+            return theme == .dark
         }
 
         return false

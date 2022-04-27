@@ -9,38 +9,50 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "AppearanceManager", 
+            name: "Appearance",
             targets: [
-                "AppearanceManager"
+                "Appearance"
             ]
         ),
         .library(
-            name: "AppearanceStyle",
+            name: "AppearanceTweaking",
             targets: [
-                "AppearanceStyle"
+                "AppearanceTweaking"
+            ]
+        ),
+        .library(
+            name: "AppearanceManagerImpl",
+            targets: [
+                "AppearanceManagerImpl"
             ]
         )
     ],
     dependencies: [
         .package(name: "Core", url: "https://github.com/kutchie-pelaez-packages/Core.git", .branch("master")),
         .package(name: "Logging", url: "https://github.com/kutchie-pelaez-packages/Logging.git", .branch("master")),
-        .package(name: "Tweaks", url: "https://github.com/kutchie-pelaez-packages/Tweaks.git", .branch("master"))
+        .package(name: "Tweaking", url: "https://github.com/kutchie-pelaez-packages/Tweaking.git", .branch("master"))
     ],
     targets: [
         .target(
-            name: "AppearanceManager",
+            name: "AppearanceManagerImpl",
             dependencies: [
                 .product(name: "Core", package: "Core"),
                 .product(name: "Logger", package: "Logging"),
-                .product(name: "Tweak", package: "Tweaks"),
-                .target(name: "AppearanceStyle")
+                .product(name: "Tweaking", package: "Tweaking"),
+                .target(name: "Appearance"),
+                .target(name: "AppearanceTweaking")
             ]
         ),
         .target(
-            name: "AppearanceStyle",
+            name: "AppearanceTweaking",
             dependencies: [
-                .product(name: "Core", package: "Core"),
-                .product(name: "Tweak", package: "Tweaks")
+                .product(name: "Tweaking", package: "Tweaking")
+            ]
+        ),
+        .target(
+            name: "Appearance",
+            dependencies: [
+                .product(name: "Core", package: "Core")
             ]
         )
     ]
